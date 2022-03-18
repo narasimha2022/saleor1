@@ -1,6 +1,6 @@
 apiVersion: v1
 kind: Service
-metadata:
+metadata:    
   name: {{ .Values.deploymentName }}
 spec:
   selector:
@@ -14,4 +14,4 @@ spec:
     - protocol: TCP
       name: {{ .Values.container.saleor_storefront.name }}
       port: 81
-      targetPort: {{ .Values.container.saleor_storefront.port }}
+      targetPort: {{ .Values.container.saleor_storefront.port }} 
