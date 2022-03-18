@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deploymentName }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: {{ .Values.deploymentName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.deploymentName }}
+    spec:
+      containers:
+        - name: {{ .Values.container.saleor_dashboard.name }}
+          image: {{ .Values.container.saleor_dashboard.image }}
+          ports:
+            - containerPort: {{ .Values.container.saleor_dashboard.port }}
+#        - name: {{ .Values.container.saleor_worker.name }}
+#          image: {{ .Values.container.saleor_worker.image }}
+#          ports:
+#            - containerPort: {{ .Values.container.saleor_worker.port }}
+        - name: {{ .Values.container.saleor_api.name }}
+          image: {{ .Values.container.saleor_api.image }}
+          ports:
+            - containerPort: {{ .Values.container.saleor_api.port }}
+        - name: {{ .Values.container.saleor_storefront.name }}
+          image: {{ .Values.container.saleor_storefront.image }}
+          ports:
+            - containerPort: {{ .Values.container.saleor_storefront.port }}
+        - name: {{ .Values.container.saleor_postgress.name }}
+          image: {{ .Values.container.saleor_postgress.image }}
+          ports:
+            - containerPort: {{ .Values.container.saleor_postgress.port }}
+        - name: {{ .Values.container.redis.name }}
+          image: {{ .Values.container.redis.image }}
+          ports:
+            - containerPort: {{ .Values.container.redis.port }}
+        - name: {{ .Values.container.saleor_pla.name }}
+          image: {{ .Values.container.saleor_pla.image }}
+          ports:
+            - containerPort: {{ .Values.container.saleor_pla.port }}
